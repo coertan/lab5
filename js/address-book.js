@@ -60,6 +60,7 @@ function render(entries) {
     var template = $('.template');
     var addBook = $('.address-book');
     var instance;
+    addBook.hide();
     addBook.empty();
     $.each(entries, function(){
         instance  = template.clone();
@@ -75,4 +76,5 @@ function render(entries) {
         instance.removeClass('template');
         addBook.append(instance);
     });
+    addBook.fadeIn();
 }
