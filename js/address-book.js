@@ -3,6 +3,8 @@
 */
 
 
+
+
 /* sortObjArray()
     sorts an array of objects by a given property name
     the property values are compared using standard 
@@ -34,3 +36,43 @@ function sortObjArray(objArray, propName) {
     });
 } //sortObjArray()
 
+
+
+
+$( function(){
+    sortObjArray(Employees.entries, 'last');
+
+    render(Employees.entries);
+
+    $(".sort-ui .btn").click(function(){
+        var sortBtn = $(this);
+        sortBtn.siblings(".active").removeClass("active");
+        sortBtn.addClass("active");
+        sortObjArray(Employees.entries, sortBtn.attr('data-sortby'));
+        render(Employees.entries);
+    
+    });
+});
+
+
+function render(entries) {
+    
+    var template = $('.template');
+    var addBook = $('.address-book');
+    var instance;
+    addBook.empty();
+    $.each(entries, function(){
+        instance  = template.clone();
+        instance.find('.first').html(this.first);
+        instance.find('.last').html(this.last);
+        instance.find('.dept').html(this.dept);
+        instance.find('.title').html(this.title);
+
+        instance.find('.pic').attr({
+            src: this.pic,
+            alt: 'Picture of ' + this.first + ' ' + this.last
+        });
+        instance.removeClass('template');
+        addBook.append(instance);
+    });
+}
